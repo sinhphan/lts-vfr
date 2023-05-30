@@ -1,12 +1,21 @@
 import { memo, useState } from 'react';
-import { ChevronDoubleUpIcon, ChevronUpDownIcon, ChevronUpIcon } from '@heroicons/react/24/solid';
+import {
+  ChevronDoubleUpIcon,
+  ChevronUpDownIcon,
+  ChevronUpIcon,
+} from '@heroicons/react/24/solid';
 const TableScreen = () => {
   const [searchKeyword, setSearchKeyword] = useState('');
+  const [showSearchTrigger, setShowSearchTrigger] = useState(false);
+  const searchTriggerClass = showSearchTrigger
+    ? `absolute w-full left-0 top-9 text-sm font-medium text-gray-900 bg-white border border-gray-200 dark:bg-gray-700 dark:border-gray-600 dark:text-white`
+    : `hidden absolute w-full left-0 top-9 text-sm font-medium text-gray-900 bg-white border border-gray-200 dark:bg-gray-700 dark:border-gray-600 dark:text-white`;
 
-  const handleSearchChange = (e)=>{
+  const handleSearchChange = (e) => {
     const keyword = e.currentTarget.value;
     setSearchKeyword(keyword);
-  }
+  };
+
   return (
     <>
       <div className="antialiased font-sans bg-gray-200">
@@ -27,8 +36,23 @@ const TableScreen = () => {
                   className="appearance-none border border-gray-400 border-b block pl-8 pr-6 py-2 w-full bg-white text-sm placeholder-gray-400 text-gray-700 focus:bg-white focus:placeholder-gray-600 focus:text-gray-700 focus:outline-none"
                   value={searchKeyword}
                   onChange={handleSearchChange}
+                  onFocus={() => setShowSearchTrigger(true)}
+                  onBlur={() => setShowSearchTrigger(false)}
                 />
+                <ul className={searchTriggerClass}>
+                  <li className="w-full px-4 py-2 border-b border-gray-200 rounded-t-lg dark:border-gray-600">
+                    keyword 1
+                  </li>
+                  <li className="w-full px-4 py-2 border-b border-gray-200 dark:border-gray-600">
+                    keyword 2
+                  </li>
+                  <li className="w-full px-4 py-2 border-b border-gray-200 dark:border-gray-600">
+                    keyword 4
+                  </li>
+                  <li className="w-full px-4 py-2 rounded-b-lg">keyword 1</li>
+                </ul>
               </div>
+              <div className="relative"></div>
             </div>
             <div className="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">
               <div className="inline-block min-w-full shadow overflow-hidden">
